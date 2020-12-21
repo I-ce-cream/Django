@@ -1,0 +1,53 @@
+django  2.2.14
+
+
+创建一个django项目：
+django-admin startproject 项目名
+
+项目中创建一个应用：
+python manage.py startapp 应用名
+
+进入调试代码的调试模式：
+python manage.py shell
+
+数据库创建更改文件：
+python manage.py makemigrations
+
+同步到数据库进行更新:
+python manage.py migrate
+
+清空数据库：
+python manage.py flush
+
+启动开发服务器：
+python manage.py runserver 0.0.0.0:8000
+
+查看更多命令
+python manage.py + 回车
+
+
+新建虚拟环境
+pip3 install virtualenv  安装虚拟环境
+
+virtualenv  env_django(创建纯净环境)
+virtualenv --system-site-packages env_django（创建环境，继承原安装的模块）
+virtualenv --no-site-packages env_django(不继承模块)
+virtualenv -p XXXX env_test(-p 指定python版本路径)
+
+pip freeze > requirements.txt		导出需要安装包到requirements.txt
+pip install -r requirements.txt		批量安装包
+
+python -m pip install --upgrade setuptools	升级setuptools
+python -m pip install --upgrade pip			升级pip	
+python -m ensurepip    升级出错时  执行重置，再执行升级
+
+安装插件
+pip install django
+pip install ipython	//调试用插件
+
+
+新建django项目
+django-admin startproject XXXX
+
+新建app
+python manage.py startapp XXX

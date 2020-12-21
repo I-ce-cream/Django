@@ -1,0 +1,158 @@
+"""
+导入url编写模块
+from django.urls import path,include
+
+导入admin功能模块
+from django.contrib import admin
+
+整个项目的url集合  每个元素代表一条url信息
+urlpatterns
+"""
+from django.urls import include
+from django.contrib import admin
+from django.urls import path
+
+urlpatterns = [
+    # 设置admin的url
+    # 第一个参数  url地址 即  http://127.0.0.1:8000/admin/   admin后面的斜杠为路径的分隔符
+    # admin.site.urls   是url对应的视图函数
+    path('admin/', admin.site.urls),
+
+
+    # 如果url为空  代表网站域名  127.0.0.1:8000 通常为网站首页  include 是将应用中的urls包含进来
+    path('', include('app.urls'))
+    # 另一种写法
+    # 直接使用from将app导入进来
+    # from app import urls as app_urls
+    # path('',inclde(app_urls))
+
+    # 扩展  网址分两部分
+    # domain      url
+    # 127.0.0.1   admin
+]
+
+
+url中的参数
+1.url后面用?   键值用等号连接 每对键值用&区分
+http://127.0.0.1:8000/app?name=dewei&age=30
+
+2.路由的参数中用分隔符分开
+http://127.0.0.1:8000/app/dewei/30
+
+url变量类型
+字符串：匹配任何非空字符串  但不包含斜杠  在不指定类型的前提下  默认字符串类型 <str:name>
+整形：匹配0 和正整数  <int:age>
+slug：注释，后缀或附属等概念   <slug:day>
+uuid：匹配一个uuid  格式的对象  <uuid:uid>  类似 xxx-xx-xx
+
+支持url类型的方法
+from django.urls import path    2.0以后的方法
+
+url设置别名
+path('add',view_function,name='add')
+别名可以在重定向和模板定义的时候直接用别名替代
+
+视图中读取参数
+?形式参数   request.GET.get(参数名)
+以分隔符形式的参数	def index(request,参数名,参数名):	print(参数名)
+
+
+
+常用request对象的方法
+request.GET		获取url上？形式的参数
+request.POST	获取post提交的数据
+request.path	请求的路径 127.0.0.1/test/1  里面  /test/1  这一段
+request.method	请求的方法 get or post
+request.COOKIES	请求过来的cookies  浏览器缓存工具
+request.user	请求的用户对象  可以判断用户是否登录  获取用户信息
+request.session	一个既可读又可写的类似于字典的对象  表示当前的会话  存在于服务器端
+request.META	一个标准python字典 包含所有http头部信息  具体取决于客户端和服务器
+
+
+常用的返回对象
+HttpResponse	可以直接返回一些字符串内容
+render			将数据在模板中渲染并显示
+JsonResponse	返回一个json类型 铜场用于前端ajax交互
+
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.http import JsonResponse
+
+
+视图面向对象的写法
+from django.views.generic import View
+Class Test(View):
+	def get(self,request):
+		return XXX
+
+		
+		
+Restful
+Url定位资源  通过一个url地址 可以让我们知道这个地址所要提供的功能是什么
+
+127.0.0.1/add/user   能看出这个url要添加一个用户
+127.0.0.1/get/user/1   读取id=1 的用户数据
+***url一切皆资源
+
+Restful常用方法
+1. Get 获取资源时使用   查看网页时
+2. Post 提交资源时使用	提交一个资源
+3. Put 修改资源时使用    修改用户信息
+4. Delete 删除资源时使用  注销账号时
+
+Http协议
+网上应用最为广泛的异种网络协议  所有的www文件都必须遵守这个标准
+
+Http无状态性
+无状态指 当浏览器发送请求给服务器时，服务器响应客户端请求，但是当同一个浏览器再次给服务器发送请求时，
+服务器并不知道它就是刚才那个浏览器
+服务器不会记录浏览器  无状态协议
+
+Http常用状态码
+200 成功
+400 请求错误 一般是参数格式有误
+403 禁止访问
+404 没有获取到url地址
+405 方法禁用，例如 指定用get的地址使用了post方法
+500 服务器异常
+
+
+***豆瓣
+apikey=0df993c66c0c636e29ecbb5344252a4a
+
+
+***启动服务出错时  尝试      设置环境为utf-8
+PYTHONIOENCODING=utf-8 python manage.py runserver
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
